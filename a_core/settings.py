@@ -130,13 +130,7 @@ ASGI_APPLICATION = 'a_core.asgi.application'
 
 # redis configuration
 # in memery channel layer for websocket 
-if ENVORONMENT == "development":
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels.layers.InMemoryChannelLayer"
-        }
-    }
-else:
+if ENVORONMENT == "production":
     CHANNEL_LAYERS = {
         "default": {
             "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -145,23 +139,32 @@ else:
             },
         },
     }
+    
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer"
+        }
+    }
 
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if ENVORONMENT == "development":
+if ENVORONMENT == "production":
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(env('DATABASE_URL'))
+    }
+    
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:
-    import dj_database_url
-    DATABASES = {
-        'default': dj_database_url.parse(env('DATABASE_URL'))
-    }
+    
 
 
 
