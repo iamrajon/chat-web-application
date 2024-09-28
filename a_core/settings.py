@@ -42,7 +42,7 @@ INTERNAL_IPS = [
     'localhost:8000'
 ]
 
-CSRF_TRUSTED_ORIGINS = [ 'https://chat-web-application-o1iz.onrender.com' ]
+# CSRF_TRUSTED_ORIGINS = [ 'https://chat-web-application-o1iz.onrender.com' ]
 
 
 # Application definition
