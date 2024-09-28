@@ -35,14 +35,14 @@ if ENVORONMENT == 'production':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'realtime-chat-zaok.render.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'real-time-chat-application-pkt9.onrender.com']
 
 INTERNAL_IPS = [
     '127.0.0.1',
     'localhost:8000'
 ]
 
-CSRF_TRUSTED_ORIGINS = [ 'https://realtime-chat-zaok.render.com' ]
+CSRF_TRUSTED_ORIGINS = [ 'https://real-time-chat-application-pkt9.onrender.com' ]
 
 
 # Application definition
