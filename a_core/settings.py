@@ -35,14 +35,14 @@ if ENVORONMENT == 'production':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'rtchat-zaok.onrender.com']
 
 INTERNAL_IPS = [
     '127.0.0.1',
     'localhost:8000'
 ]
 
-CSRF_TRUSTED_ORIGINS = [ 'https://*' ]
+CSRF_TRUSTED_ORIGINS = [ 'https://rtchat-zaok.onrender.com' ]
 
 
 # Application definition
