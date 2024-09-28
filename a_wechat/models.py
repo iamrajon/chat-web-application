@@ -6,13 +6,18 @@ import shortuuid
 # Create your models here.
 
 class ChatGroup(models.Model):
-    group_name = models.CharField(_("Group Name"), max_length=128, unique=True, default=shortuuid.uuid)
+    group_name = models.CharField(_("Group Name"), max_length=128, unique=True, blank=True)
     members = models.ManyToManyField(User, related_name='chat_groups', blank=True)
     is_private = models.BooleanField(default=False)
     users_online = models.ManyToManyField(User, related_name='online_in_groups', blank=True)
 
     def __str__(self):
         return self.group_name
+    
+    def save(self, *args, **kwargs):
+        if not self.group_name:
+            self.group_name = shortuuid.uuid()
+        super().save(*args, **kwargs)
     
     class Meta:
         verbose_name = "Chat Group"
