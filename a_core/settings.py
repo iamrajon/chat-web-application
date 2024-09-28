@@ -119,14 +119,7 @@ TEMPLATES = [
 ASGI_APPLICATION = 'a_core.asgi.application'
 
 # Redis Channel Layer
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [("127.0.0.1", 6379)],
-#         },
-#     },
-# }
+
 
 # redis configuration
 # in memery channel layer for websocket 
@@ -146,6 +139,18 @@ else:
             "BACKEND": "channels.layers.InMemoryChannelLayer"
         }
     }
+
+
+
+
+# CHANNEL_LAYERS = {
+#         "default": {
+#             "BACKEND": "channels_redis.core.RedisChannelLayer",
+#             "CONFIG": {
+#                 "hosts": [('redis://red-crru87rtq21c73d9purg:6379')],
+#             },
+#         },
+#     }
 
 
 # Database
