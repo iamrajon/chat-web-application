@@ -1,0 +1,10 @@
+venv/
+rtchat-venv/
+node/
+static/
+media/
+migrations/
+__pycache__/
+db.sqlite3
+.env
+

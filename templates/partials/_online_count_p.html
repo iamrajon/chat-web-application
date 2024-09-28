@@ -1,0 +1,64 @@
+{% comment %} <span id="online-count" hx-swap-oob="outerHTML" class="ms-2 me=2"> {{ online_count }} </span> {% endcomment %}
+
+<div id="online-count" hx-swap-oob="innerHTML" class="flex items-center py-2 space-x-1">
+    {% if online_count %}   
+        <span class="">{{ online_count }}</span> 
+        <span class="">online</span>
+        <span class="w-3 h-3 bg-green-500 border-2 border-white rounded-full inline-block"></span>
+    {% else %}
+        <span class="">{{ online_count }}</span> 
+        <span class="">online</span>
+        <span class="w-3 h-3 bg-gray-700 border-2 border-white rounded-full inline-block"></span>
+    {% endif %}
+</div>
+
+
+
+<div id="online-dot" hx-swap-oob="outerHTML"> 
+    {% if other_user_id in online_users_ids %} 
+        <span id="online-dot" class="w-3 h-3 bg-green-500 border-2 border-white rounded-full inline-block"></span>
+    {% else %}
+    <span id="online-dot" class="w-3 h-3 bg-gray-500 border-2 border-white rounded-full inline-block"></span>
+    {% endif %}
+</div>
+
+
+
+<div id='dot-profile' hx-swap-oob="outerHTML">   
+    {% for profile in other_profiles reversed %}
+        <div class="space-y-2">
+            <div class="flex items-center justify-between bg-gray-100 p-2 rounded-md mb-3 cursor-pointer">
+                <div class="flex items-center space-x-2">
+                    <!-- User Avatar -->
+                    <a href="{% url 'profile' profile.user.username %}"> 
+                        <img src="{{ profile.avatar }}" alt="Avatar" class="rounded-full w-14 h-14 object-cover">
+                    </a>
+                    
+                    <!-- User Name and Message Link -->
+                    <a href="{% url 'start-chat' profile.user.username %}">
+                        <div>
+                            <h4 class="font-semibold font-poppins">{{ profile.name }}</h4>
+                            <p class="text-gray-500 text-sm">Chat with Me</p>  
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Dot indicating online/offline status (aligned to right) -->
+                <div id="online-status-dot"> 
+                    <div class="flex items-center">
+                        <span class="inline-block w-3 h-3 rounded-full 
+                            {% if profile.user.id in online_users_ids %}
+                                bg-green-500  <!-- Green dot for online users -->
+                            {% else %}
+                                bg-gray-500  <!-- Red dot for offline users -->
+                            {% endif %}
+                        "></span>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    {% endfor %}
+</div>
+
+
+

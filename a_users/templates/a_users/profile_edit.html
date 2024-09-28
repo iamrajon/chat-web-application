@@ -1,0 +1,99 @@
+{% extends 'layouts/blank.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="flex justify-center items-center  w-screen">
+    <!--card-->
+    <div class="card bg-gray-300 w-[55%] rounded shadow-xl justify-center">
+        <div class="card-title align-middle justify-center p-2 mt-2 ">
+            {% if onboarding %}
+                <h2 class="mb-2 font-poppins text-center">Complete your Profile</h2>
+            {% else %}
+                <h2 class="mb-2 font-prompt text-center">Edit your Profile</h2>
+            {% endif %}
+        </div>
+
+        <div class="card-body p-2">
+            <div class="text-center flex flex-col items-center">
+                <img id="avatar" class="w-36 h-36 rounded-full object-cover my-2" src="{{ user.profile.avatar }}" />
+                <div class="text-center max-w-md">
+                    <h2 id="displayname" class="font-poppins text-black text-xl">{{ user.profile.displayname|default:"" }}</h2>
+                    <div class="text-gray-600 mb-2 mt-1">@{{ user.username }}</div>
+                </div>
+            </div>
+
+            <!--edit profile form-->
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+
+                <!-- Form Fields -->
+                <div class="space-y-6">
+                    <!-- Image Upload Field -->
+                    {{ form.image|add_class:"block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                
+                    <!-- Display Name Field -->
+                    {{ form.displayname|add_class:"block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                
+                    <!-- Info Field -->
+                    {{ form.info|add_class:"block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                </div>
+                
+
+                <!-- Submit Button -->
+                <div class="flex gap-3">
+                    <button type="submit" class="inline-flex justify-center items-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Submit
+                    </button>
+
+                    <!-- Conditional Buttons -->
+                    <div class="flex justify-between items-center">
+                        {% if onboarding %}
+                            <!-- Skip Button (Neutral Action) -->
+                            <a class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-1" 
+                            href="{% url 'chat-home' %}">
+                                Skip
+                            </a>
+                        {% else %}
+                            <!-- Cancel Button (Destructive Action) -->
+                            <a class="inline-flex items-center px-6 py-3 border border-red-300 shadow-sm text-sm font-medium rounded-lg text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ml-1" 
+                            href="{{ request.META.HTTP_REFERER }}">
+                                Cancel
+                            </a>
+                        {% endif %}
+                    </div>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+    // This updates the avatar
+    const fileInput = document.querySelector('input[type="file"]');
+
+    fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    const image = document.querySelector('#avatar');
+
+    if (file && file.type.includes('image')) {
+        const url = URL.createObjectURL(file);
+        image.src = url;
+    }
+    });
+
+    // This updates the name
+    const display_nameInput = document.getElementById('id_displayname');
+    const display_nameOutput = document.getElementById('displayname');
+
+    display_nameInput.addEventListener('input', (event) => {
+        display_nameOutput.innerText = event.target.value;
+    });
+
+</script>
+
+{% endblock %}

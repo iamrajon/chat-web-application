@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block layout %}
+
+<content class="block w-full">
+    <div class="flex h-screen">
+
+        <!--sidenav included 1st portion-->
+        <div class="w-2/12 bg-gray-800 text-white p-5 ">
+            {% include "includes/side_navbar.html" %}
+        </div>
+
+        <!--block for displaying second portion-->
+        <div class="w-10/12 flex bg-gray-200">
+        {% block content %} 
+
+        {% endblock %}
+        </div>
+        
+    </div>
+</content>
+
+{% endblock %}
