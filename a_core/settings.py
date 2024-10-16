@@ -144,13 +144,13 @@ else:
 
 
 # CHANNEL_LAYERS = {
-#         "default": {
-#             "BACKEND": "channels_redis.core.RedisChannelLayer",
-#             "CONFIG": {
-#                 "hosts": [('redis://red-crru87rtq21c73d9purg:6379')],
-#             },
+#     "default": {
+#         "BACKEND": "channels_redis.pubsub.RedisPubSubChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("red-crru87rtq21c73d9purg", 6379)],
 #         },
-#     }
+#     },
+# }
 
 
 # Database
